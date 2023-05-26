@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { ProductInterface, productsData } from "./products.data";
+import React from "react";
 import {
   styled,
   Table,
@@ -9,6 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { ProductInterface } from "../network/useGetProducts";
 
 interface Settings {
   displayStock?: boolean;
@@ -18,28 +18,20 @@ interface Settings {
 
 interface ProductsProps {
   settings: Settings;
+  products?: ProductInterface[];
 }
 
-const Products = ({ settings }: ProductsProps) => {
-  // 🔥 iframe'y nie dopasowują swoich rozmiarów do treści, więc trzeba ręcznie
-  // powiadomić shella jaką wysokość powinien nadać ramce osadzającej ten mikrofront.
-  useEffect(() => {
-    window.parent?.postMessage(
-      { type: "updateIframeHeight", height: document.body.offsetHeight + 16 },
-      "*"
-    );
-  });
-
+const Products = ({ settings, products }: ProductsProps) => {
   const { minCostValue, sortBy, displayStock } = settings || {};
 
   let dataToDisplay: ProductInterface[];
 
   if (minCostValue) {
-    dataToDisplay = (productsData || []).filter(
+    dataToDisplay = (products || []).filter(
       ({ price }) => price >= minCostValue!
     );
   } else {
-    dataToDisplay = (productsData || []).slice();
+    dataToDisplay = (products || []).slice();
   }
 
   if (sortBy && sortBy === "price") {

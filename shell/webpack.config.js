@@ -1,14 +1,21 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
 const deps = require("./package.json").dependencies;
+const path = require("path");
 
 module.exports = {
   entry: "./src/index.tsx",
   mode: "development",
   devtool: "source-map",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "index_bundle.js",
+    publicPath: "/",
+  },
   devServer: {
     port: 3030,
     open: true,
+    historyApiFallback: true,
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
@@ -31,10 +38,6 @@ module.exports = {
     }),
     new ModuleFederationPlugin({
       name: "shell",
-      remotes: {
-        "@mfe/shop1": "shop1@http://localhost:3031/remoteEntry.js",
-        "@mfe/settings": "settings@http://localhost:3032/remoteEntry.js",
-      },
       shared: {
         ...deps,
         react: {

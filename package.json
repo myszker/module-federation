@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "start": "concurrently --names \"SHELL,SETTINGS,SHOP1,PUBSUB\" -c \"bgYellow.black.bold,blue.bold,magenta.bold,green.bold\" \"cd shell && npm start\" \"cd settings && npm start\" \"cd shop1 && npm start\" \"cd pubsub && npm start\"",
+    "start": "concurrently --names \"SHELL,SETTINGS,SHOP1,PUBSUB\" -c \"pink.bold,blue.bold,magenta.bold,green.bold\" \"cd shell && npm start\" \"cd settings && npm start\" \"cd shop1 && npm start\" \"cd pubsub && npm start\"",
+    "start-api": "concurrently --names \"API_SHELL,API_DOWNSTREAM\" -c \"magenta.bold,green.bold\" \"cd api/shell && npm run start:dev\" \"cd api/downstream && npm run start:dev\"",
     "install": "cd shell && npm i && cd ../shop1 && npm i && cd ../settings && npm i && cd ../pubsub && npm i"
   },
   "dependencies": {

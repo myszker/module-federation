@@ -32,7 +32,6 @@ module.exports = {
       exposes: {
         // expose each component
         "./app": "./src/app",
-        // "./EmployeeList": "./src/components/EmployeeList",
       },
       remotes: {
         "@mfe/pubsub": "mfe_pubsub@http://localhost:3033/remoteEntry.js",
